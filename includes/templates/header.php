@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg bg-dark shadow" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="./assets/imgs/logo.png" alt="Logo" width="30" height="24"
+        <img src="./assets/imgs/logo.png" alt="Logo" width="50" height="50"
           class="d-inline-block align-text-top">
         La Tavola Fina
       </a>

@@ -1,6 +1,6 @@
-<?php 
+<?php
 // Inicia a sessão para lidar com mensagens de erro ou redirecionamento futuro
-session_start(); 
+session_start();
 // Se o usuário já estiver logado, redireciona para a lista de reservas
 if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
     header('Location: reservas_lista.php');
@@ -9,12 +9,15 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | La Tavola Fina</title>
+    <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
+</head>
+
 <body class="bg-light">
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
@@ -22,16 +25,21 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
                 <h4 class="mb-0">Acesso Administrativo</h4>
             </div>
             <div class="card-body">
-                
-                <?php 
-                // Exibir mensagem de erro, se houver
+
+                <?php
+                // PASSO 1: Verificar se existe uma mensagem de erro na sessão.
+                // A variável $_SESSION['login_erro'] é definida no arquivo 'processa_login.php'
+                // caso as credenciais de login estejam incorretas.
                 if (isset($_SESSION['login_erro'])): ?>
+                    <!-- PASSO 2: Se a mensagem existir, exibir um alerta de erro do Bootstrap. -->
                     <div class="alert alert-danger text-center">
+                        <!-- PASSO 3: Imprimir a mensagem de erro dentro do alerta. O '?=' é um atalho para ?php echo. -->
                         <?= $_SESSION['login_erro']; ?>
                     </div>
-                <?php 
-                    unset($_SESSION['login_erro']); // Limpa a mensagem após exibir
-                endif; 
+                    <?php
+                    // PASSO 4: Remover a variável da sessão. Isso é crucial para que a mensagem não seja exibida novamente após um refresh da página.
+                    unset($_SESSION['login_erro']);
+                endif;
                 ?>
 
                 <form action="processa_login.php" method="POST">
@@ -52,4 +60,5 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

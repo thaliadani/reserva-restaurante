@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Tavola Fina</title>
+    <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -41,7 +42,7 @@
                 </p>
             </div>
             <div class="col-md-6 order-md-2">
-                <img src="./assets/imgs/restaurante.png" class="img-fluid rounded shadow-lg"
+                <img src="./assets/imgs/restaurante.png" class="img-fluid rounded shadow-lg w-50"
                     alt="Ambiente do Restaurante La Tavola Fina">
             </div>
         </div>
