@@ -1,9 +1,9 @@
 <header>
   <nav class="navbar navbar-expand-lg bg-dark shadow" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="./assets/imgs/logo.png" alt="Logo" width="50" height="50"
-          class="d-inline-block align-text-top">
+      <a class="navbar-brand" href="../public/index.php">
+        <img src="./assets/imgs/logo.png" alt="Logo" width="44" height="50"
+          class="d-inline-block">
         La Tavola Fina
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
