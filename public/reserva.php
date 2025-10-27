@@ -25,24 +25,24 @@ session_start();
                     <h2 class="text-center my-4">Reserve sua Mesa</h2>
                     <form action="processa_reserva.php" method="POST" class="col-lg-6 mx-auto" id="reservaForm">
                         <div class="row mb-3">
-                            <div class="col-md-4">
+                            <div class="col">
                                 <label for="data_reserva" class="form-label">Data</label>
                                 <input type="date" class="form-control" id="data_reserva" name="data_reserva" required>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col">
                                 <label for="hora_reserva" class="form-label">Hora</label>
                                 <input type="time" class="form-control" id="hora_reserva" name="hora_reserva" required>
                             </div>
-                            <div class="col-12 mt-2">
-                                <small class="form-text text-muted">Nosso horário de funcionamento é das 19:00h às 00:00h.</small>
+                            <div class="col-12 mb-3">
+                                <small class="form-text text-muted">Funcionamos todos os dias e  o nosso horário de funcionamento é das 19:00h às 00:00h.</small>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col mb-3">
                                 <label for="num_pessoas" class="form-label">Número de Pessoas</label>
                                 <input type="number" class="form-control" id="num_pessoas" name="num_pessoas" min="1"
                                     max="10" required>
                             </div>
 
-                            <div class="my-3">
+                            <div class="mb-3">
                                 <label for="nome_cliente" class="form-label">Nome Completo</label>
                                 <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" required>
                             </div>
@@ -66,7 +66,7 @@ session_start();
                                     placeholder="Informe aqui se houver alguma restrição, celebração especial ou preferência de assento."></textarea>
                             </div>
                             <div class="d-grid gap-2 mt-4">
-                                <button type="submit" class="btn btn-danger btn-lg">Confirmar Reserva</button>
+                                <button type="submit" class="btn btn-primary btn-lg">Confirmar Reserva</button>
                             </div>
 
                         </div>

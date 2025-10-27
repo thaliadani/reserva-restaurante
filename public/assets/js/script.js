@@ -1,6 +1,6 @@
-const form = document.getElementById('reservaForm'); // Certifique-se de que seu <form> tem id="reservaForm" 
+const form = document.getElementById('reservaForm');
 const nome = document.getElementById('nome_cliente');       
-const email = document.getElementById('email_cliente'); // Correção do erro de digitação "doocument"
+const email = document.getElementById('email_cliente');
 const telefone = document.getElementById('telefone_cliente');
 const dataReserva = document.getElementById('data_reserva');
 const horaReserva = document.getElementById('hora_reserva');

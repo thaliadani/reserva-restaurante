@@ -14,7 +14,7 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | La Tavola Fina</title>
-    <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -42,7 +42,7 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
                 endif;
                 ?>
 
-                <form action="processa_login.php" method="POST">
+                <form action="processa_login.php" method="POST" id="form-admin">
                     <div class="mb-3">
                         <label for="usuario" class="form-label">Usuário</label>
                         <input type="text" class="form-control" id="usuario" name="usuario" required>
@@ -58,6 +58,7 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
             </div>
         </div>
     </div>
+    <script src="./assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

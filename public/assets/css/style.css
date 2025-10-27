@@ -1,3 +1,10 @@
+:root{
+    --cor-primaria: #000;
+    --cor-segundaria: #c99f16;
+
+    --fundo-transparente: #0000007a;
+}
+
 main {
     min-width: 100% !important;
     min-height: 100vh !important;
@@ -10,3 +17,18 @@ main {
     min-height: 100vh !important;
 }
 
+.card-inicio {
+    background-color: var(--fundo-transparente);
+    border-radius: 1rem;
+    backdrop-filter: blur(4px);
+}
+
+.btn-primary {
+    background-color: var(--cor-segundaria) !important;
+    color: var(--cor-primaria) !important;
+    border: none !important;
+}
+
+h1,h2, .cor-preco{
+    color: var(--cor-segundaria);
+}

@@ -18,9 +18,13 @@
             <div class="column">
                 <section
                     class="hero-section text-white d-flex flex-column justify-content-center align-items-center text-center">
-                    <h1 class="display-3 fw-bold">La Tavola Fina</h1>
-                    <p class="lead mb-4">Uma experiência gastronômica de alta classe no coração da cidade.</p>
-                    <a href="reserva.php" class="btn btn-lg btn-danger shadow-lg">Reservar Mesa Agora</a>
+                    <div class="row">
+                        <div class="column card-inicio shadow-lg p-4">
+                            <h1 class="display-3 fw-bold">La Tavola Fina</h1>
+                            <p class="lead mb-4">Uma experiência gastronômica de alta classe no coração da cidade.</p>
+                            <a href="reserva.php" class="btn btn-lg btn-primary shadow-lg fw-bold">Reservar Mesa Agora</a>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
