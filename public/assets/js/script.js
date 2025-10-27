@@ -41,7 +41,7 @@ function validateForm() {
         valid = false;              
     }       
     return valid;       
-}           
+}  
 
 function showError(input, message) {       
     const errorDiv = document.createElement('div');       
@@ -56,6 +56,10 @@ function clearErrors() {
         msg.remove();       
     });       
 }
+
+horaReserva.addEventListener('input', function(){
+    horaLimite(horaReserva)
+})
 
 function formatPhoneNumber(input) {
     // Remove todos os caracteres que não são dígitos
@@ -78,3 +82,14 @@ function formatPhoneNumber(input) {
 telefone.addEventListener('input', function() {       
     formatPhoneNumber(telefone);       
 });
+
+horaReserva.addEventListener('input', function(event) {
+    const minHora = '19:00';
+    const maxHora = '00:00';
+    const inputHora = event.target.value;
+
+    if (inputHora && (inputHora < minHora || inputHora > maxHora)) {
+      alert('O horário deve estar entre 19:00 e 00:00.');
+      event.target.value = '';
+    }
+  });

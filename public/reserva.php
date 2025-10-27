@@ -10,9 +10,9 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Tavola Fina</title>
     <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -21,8 +21,8 @@ session_start();
     <main>
         <div class="container my-5">
             <div class="row">
-                <div class="column">
-                    <h2 class="text-center my-4">Reserve sua Mesa</h2>
+                <div class="column w-75 mx-auto">
+                    <h1 class="text-center p-4 fw-bold">Reserve sua Mesa</h2>
                     <form action="processa_reserva.php" method="POST" class="col-lg-6 mx-auto" id="reservaForm">
                         <div class="row mb-3">
                             <div class="col">
@@ -31,7 +31,7 @@ session_start();
                             </div>
                             <div class="col">
                                 <label for="hora_reserva" class="form-label">Hora</label>
-                                <input type="time" class="form-control" id="hora_reserva" name="hora_reserva" required>
+                                <input type="time" class="form-control" id="hora_reserva" name="hora_reserva" min="19:00" max="00:00" required>
                             </div>
                             <div class="col-12 mb-3">
                                 <small class="form-text text-muted">Funcionamos todos os dias e  o nosso horário de funcionamento é das 19:00h às 00:00h.</small>
@@ -55,15 +55,14 @@ session_start();
 
                             <div class="mb-3">
                                 <label for="telefone_cliente" class="form-label">Telefone</label>
-                                <input type="tel" class="form-control" id="telefone_cliente" name="telefone_cliente" maxlength="11"
-                                    required>
+                                <input type="tel" class="form-control" id="telefone_cliente" name="telefone_cliente" required>
                             </div>
                             <div class="mb-3">
                                 <label for="observacoes" class="form-label">
                                     Observações e Pedidos Especiais
                                 </label>
                                 <textarea class="form-control" id="observacoes" name="observacoes" rows="4"
-                                    placeholder="Informe aqui se houver alguma restrição, celebração especial ou preferência de assento."></textarea>
+                                    placeholder="Informe aqui se houver alguma restrição, celebração especial ou preferência de assento." style="resize: none;"></textarea>
                             </div>
                             <div class="d-grid gap-2 mt-4">
                                 <button type="submit" class="btn btn-primary btn-lg">Confirmar Reserva</button>

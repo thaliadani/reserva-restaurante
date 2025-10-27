@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
+
 :root{
     --cor-primaria: #000;
     --cor-segundaria: #c99f16;
 
     --fundo-transparente: #0000007a;
+}
+
+body{
+    font-family:"Instrument Serif", serif !important;
 }
 
 main {
@@ -29,6 +36,10 @@ main {
     border: none !important;
 }
 
+h1,h2{
+    font-family: "Playball", cursive !important;
+}
+
 h1,h2, .cor-preco{
-    color: var(--cor-segundaria);
+    color: var(--cor-segundaria) !important;
 }

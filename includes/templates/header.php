@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg bg-dark shadow" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="../public/index.php">
+      <a class="navbar-brand" href="../public/index.php" style="font-family: Playball, cursive;">
         <img src="./assets/imgs/logo.png" alt="Logo" width="44" height="50"
           class="d-inline-block">
         La Tavola Fina

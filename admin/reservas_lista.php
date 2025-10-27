@@ -75,13 +75,13 @@ $num = count($reservas);
         // Esta mensagem é definida em 'mudar_status.php' após uma atualização.
         if (isset($_SESSION['status_msg'])):
             $msg = $_SESSION['status_msg'];
-            ?>
+        ?>
             <!-- O tipo do alerta (success, danger, etc.) e o texto são dinâmicos, vindos da sessão. -->
             <div class="alert alert-<?= $msg['tipo'] ?> alert-dismissible fade show" role="alert">
                 <?= $msg['texto'] ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <?php
+        <?php
             unset($_SESSION['status_msg']); // Limpa a mensagem após exibir
             // Limpa a mensagem da sessão para que não seja exibida novamente.
             unset($_SESSION['status_msg']);
@@ -91,7 +91,8 @@ $num = count($reservas);
         <!-- Exibe o título com a contagem total de reservas. -->
         <h2 class="mb-4">Lista de Reservas (<?= $num ?>)</h2>
 
-        <?php // PASSO 7: Verificar se existem reservas para exibir. ?>
+        <?php // PASSO 7: Verificar se existem reservas para exibir. 
+        ?>
         <?php if ($num > 0): ?>
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
@@ -108,11 +109,12 @@ $num = count($reservas);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php // PASSO 8: Iterar sobre o array de reservas e exibir cada uma em uma linha da tabela. ?>
+                        <?php // PASSO 8: Iterar sobre o array de reservas e exibir cada uma em uma linha da tabela. 
+                        ?>
                         <?php foreach ($reservas as $reserva):
                             // Determinar a classe de cor para o status
                             $badge_class = ($reserva['status'] == 'Confirmada') ? 'bg-success' : (($reserva['status'] == 'Cancelada') ? 'bg-danger' : 'bg-warning');
-                            ?>
+                        ?>
                             <tr>
                                 <!-- Exibição dos dados da reserva. htmlspecialchars() previne ataques XSS. -->
                                 <td><?= $reserva['id_reserva'] ?></td>
@@ -129,7 +131,8 @@ $num = count($reservas);
                                 <td><?= $reserva['num_pessoas'] ?></td>
                                 <td><?= htmlspecialchars(substr($reserva['observacoes'], 0, 50)) ?>...</td>
                                 <td>
-                                    <?php // PASSO 9: Criar o seletor de status interativo. ?>
+                                    <?php // PASSO 9: Criar o seletor de status interativo. 
+                                    ?>
                                     <!-- O atributo 'data-reserva-id' armazena o ID da reserva para uso no JavaScript. -->
                                     <!-- O evento 'onchange' chama a função JavaScript 'mudarStatus' sempre que uma nova opção é selecionada. -->
                                     <select class="form-select form-select-sm" data-reserva-id="<?= $reserva['id_reserva'] ?>"
@@ -183,9 +186,9 @@ $num = count($reservas);
             // 2. Enviar a requisição para o backend (mudar_status.php)
             // Usa a API Fetch para enviar os dados para 'mudar_status.php'.
             fetch('mudar_status.php', {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     // Se a requisição foi bem-sucedida (status 200)
                     // Se a resposta do servidor for OK (status 200-299), recarrega a página.
