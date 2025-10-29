@@ -15,13 +15,13 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="./index.php  ">Inicio</a>
           </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="./cardapio.php">Cardápio</a>
-          </li>
-
+          
           <li class="nav-item">
             <a class="nav-link" href="./reserva.php">Reserva</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="./cardapio.php">Cardápio</a>
           </li>
 
           <li class="nav-item">

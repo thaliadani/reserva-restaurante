@@ -3,12 +3,9 @@
  * PASSO 1: Incluir o arquivo de configuração do banco de dados.
  * `require_once` garante que o arquivo seja incluído apenas uma vez.
  * `__DIR__` é uma constante mágica do PHP que retorna o diretório do arquivo atual.
- * A partir dele, voltamos um nível ('/../') e entramos em 'config/' para encontrar 'database.php'.
- * Este arquivo contém as constantes como DB_HOST, DB_NAME, etc.
  */
 require_once __DIR__ . '/../config/database.php';
 
-// PASSO 2: Definir a classe que gerenciará a conexão com o banco de dados.
 class Database {
     // PASSO 3: Definir as propriedades (variáveis) da classe para a conexão.
     // Elas são 'private' para que só possam ser acessadas de dentro desta classe.
@@ -20,10 +17,6 @@ class Database {
     private $charset = DB_CHARSET;
     public $conn; // Esta propriedade será pública para que o objeto de conexão possa ser acessado de fora.
 
-    /**
-     * PASSO 4: Criar o método público que será chamado para obter a conexão.
-     * Este método é o coração da classe.
-     */
     public function getConnection(){
         // PASSO 5: Inicializar a propriedade de conexão como nula.
         // Isso garante que não estamos reutilizando uma conexão antiga ou fechada.

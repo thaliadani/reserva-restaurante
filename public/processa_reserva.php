@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // PASSO 5: Validação básica dos dados.
     // `filter_var` com `FILTER_VALIDATE_EMAIL` verifica se o e-mail tem um formato válido.
-    // Em uma aplicação real, mais validações seriam adicionadas aqui (ex: data futura, formato do telefone, etc.).
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Se a validação falhar, define uma mensagem de erro e redireciona.
         $_SESSION['reserva_status'] = 'erro';

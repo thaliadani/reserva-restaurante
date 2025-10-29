@@ -4,13 +4,6 @@
 // e também para passar mensagens de erro de volta para a página de login.
 session_start();
 
-// Habilitar a exibição de erros (SOMENTE EM DESENVOLVIMENTO!)
-// Estas linhas forçam o PHP a mostrar todos os erros na tela, o que é útil para depuração.
-// Em um ambiente de produção, isso deve ser desativado e os erros devem ser registrados em um arquivo de log.
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // PASSO 2: Incluir os arquivos necessários.
 // Incluímos a classe Database para poder nos conectar ao banco de dados.
 require_once '../includes/classes/Database.php'; 

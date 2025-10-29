@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Tavola Fina</title>
-    <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/imgs/icon.svg" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -14,7 +14,6 @@
 
 <body>
     <?php
-
     include '../includes/templates/header.php';
     ?>
 
@@ -48,32 +47,26 @@
                 </div>
 
                 <div class="row align-items-center flex-row-reverse mb-5 pb-4">
-
-                </div>
-
-                <div class="col-md-6 text-center">
-                    <img src="./assets/imgs" class="img-fluid rounded-circle shadow-lg mb-3 w-100" alt="Chef Marcelo Bianchi">
-                </div>
-                <div class="col-md-6">
-                    <h2 class="h3 mb-3 text-dark text-center">Nosso Maestro: Chef Marcelo Bianchi</h2>
-                    <p>
+                    
+                    <div class="col-md-6">
+                        <h2 class="h3 mb-3 text-dark text-center">Nosso Maestro: Chef Marcelo Bianchi</h2>
+                        <p>
                         Formado nas melhores escolas de Florença, o Chef Bianchi é o coração criativo do La Tavola Fina.
                         Sua paixão por receitas ancestrais, combinada com técnicas modernas, resultou em um menu que
                         respeita
                         o passado enquanto abraça a inovação.
-                    </p>
-                    <p class="fst-italic text-secondary">
+                        </p>
+                        <p class="fst-italic text-secondary">
                         "Cozinhar é contar uma história, e a nossa história é sobre excelência e paixão pelo sabor."
-                    </p>
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img src="./assets/imgs" class="img-fluid rounded-circle shadow-lg mb-3 w-100" alt="Chef Marcelo Bianchi">
+                    </div>
                 </div>
+
             </div>
         </div>
-
-        </div>
-
-
-
-
 
         <div class="text-center mt-5 p-4 bg-light rounded shadow-sm">
             <p class="lead">Pronto para vivenciar a sofisticação do sabor?</p>

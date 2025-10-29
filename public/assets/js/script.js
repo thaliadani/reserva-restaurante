@@ -82,14 +82,3 @@ function formatPhoneNumber(input) {
 telefone.addEventListener('input', function() {       
     formatPhoneNumber(telefone);       
 });
-
-horaReserva.addEventListener('input', function(event) {
-    const minHora = '19:00';
-    const maxHora = '00:00';
-    const inputHora = event.target.value;
-
-    if (inputHora && (inputHora < minHora || inputHora > maxHora)) {
-      alert('O horário deve estar entre 19:00 e 00:00.');
-      event.target.value = '';
-    }
-  });
