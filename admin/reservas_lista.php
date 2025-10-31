@@ -23,6 +23,7 @@ if (!isset($_SESSION['admin_logado']) || $_SESSION['admin_logado'] !== true) {
 // 1. Incluir classes de conexão (O caminho é subir um nível '..' e entrar em 'includes/')
 // PASSO 3: Incluir a classe de conexão com o banco de dados.
 require_once '../includes/classes/Database.php';
+require_once '../includes/config/security.php';
 
 // Conectar ao Banco de Dados
 // PASSO 4: Conectar ao Banco de Dados.
@@ -114,14 +115,17 @@ $num = count($reservas);
                         <?php foreach ($reservas as $reserva):
                             // Determinar a classe de cor para o status
                             $badge_class = ($reserva['status'] == 'Confirmada') ? 'bg-success' : (($reserva['status'] == 'Cancelada') ? 'bg-danger' : 'bg-warning');
+                        
+                            $email_decriptografado = decrypt_data($reserva['email_cliente']);
+                            $telefone_decriptografado = decrypt_data($reserva['telefone_cliente']);
                         ?>
                             <tr>
                                 <!-- Exibição dos dados da reserva. htmlspecialchars() previne ataques XSS. -->
                                 <td><?= $reserva['id_reserva'] ?></td>
                                 <td><?= htmlspecialchars($reserva['nome_cliente']) ?></td>
                                 <td>
-                                    <?= htmlspecialchars($reserva['email_cliente']) ?><br>
-                                    <?= htmlspecialchars($reserva['telefone_cliente']) ?>
+                                    <?= htmlspecialchars($email_decriptografado) ?><br>
+                                    <?= htmlspecialchars($telefone_decriptografado) ?>
                                 </td>
                                 <td>
                                     <!-- Formatação da data e hora para um formato mais legível. -->
@@ -144,7 +148,9 @@ $num = count($reservas);
                                         <option value="Cancelada" <?= ($reserva['status'] == 'Cancelada') ? 'selected' : '' ?>>
                                             Cancelada</option>
                                     </select>
+                                    
                                 </td>
+                                
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

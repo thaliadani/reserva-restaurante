@@ -16,26 +16,10 @@ function validateForm() {
     let valid = true;
     clearErrors();
 
-    if (nome.value.trim() === '') {
-        showError(nome, 'O nome é obrigatório.');
+    if (nome.value.trim() === '' || email.value.trim() === '' || telefone.value.trim() === '' || dataReserva.value === '' || horaReserva.value === '') {
+        showError(nome, '⚠️ Preencha todos os campos!');
         valid = false;
-    }               
-    if (email.value.trim() === '') {            
-        showError(email, 'O email é obrigatório.');            
-        valid = false;
-    }           
-    if (telefone.value.trim() === '') {     
-        showError(telefone, 'O telefone é obrigatório.');            
-        valid = false;
-    }   
-    if (dataReserva.value === '') {     
-        showError(dataReserva, 'A data da reserva é obrigatória.');             
-        valid = false;      
-    }   
-    if (horaReserva.value === '') {         
-        showError(horaReserva, 'A hora da reserva é obrigatória.');             
-        valid = false;      
-    }           
+    }                        
     if (numPessoas.value === '' || isNaN(numPessoas.value) || parseInt(numPessoas.value) <= 0) {    
         showError(numPessoas, 'O número de pessoas deve ser um valor válido.');             
         valid = false;              

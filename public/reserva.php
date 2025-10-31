@@ -54,7 +54,7 @@ session_start();
                             </div>
 
                             <div class="mb-3">
-                                <label for="telefone_cliente" class="form-label">Telefone</label>
+                                <label for="telefone_cliente" class="form-label">Telefone/Celular</label>
                                 <input type="tel" class="form-control" id="telefone_cliente" name="telefone_cliente" required>
                             </div>
                             <div class="mb-3">

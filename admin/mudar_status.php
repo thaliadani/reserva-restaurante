@@ -3,11 +3,6 @@
 // Essencial para verificar se o administrador está logado e para definir mensagens de feedback.
 session_start();
 
-// Habilitar a exibição de erros (SOMENTE EM DESENVOLVIMENTO!)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // PASSO 2: Definir o tipo de conteúdo da resposta.
 // Como este script é um endpoint para uma requisição JavaScript (fetch),
 // informamos ao navegador que a resposta será no formato JSON.
