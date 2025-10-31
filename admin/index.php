@@ -27,18 +27,25 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
             <div class="card-body d-flex flex-column mb-3">
 
                 <?php
-                // PASSO 1: Verificar se existe uma mensagem de erro na sessão.
-                // A variável $_SESSION['login_erro'] é definida no arquivo 'processa_login.php'
-                // caso as credenciais de login estejam incorretas.
-                if (isset($_SESSION['login_erro'])): ?>
-                    <!-- PASSO 2: Se a mensagem existir, exibir um alerta de erro do Bootstrap. -->
-                    <div class="alert alert-danger text-center">
-                        <!-- PASSO 3: Imprimir a mensagem de erro dentro do alerta. O '?=' é um atalho para ?php echo. -->
-                        <?= $_SESSION['login_erro']; ?>
+                // Exibe mensagem de erro de login, se houver.
+                if (isset($_SESSION['login_erro'])):
+                ?>
+                    <div class="alert alert-danger text-center" role="alert">
+                        <?= htmlspecialchars($_SESSION['login_erro']) ?>
                     </div>
-                    <?php
-                    // PASSO 4: Remover a variável da sessão. Isso é crucial para que a mensagem não seja exibida novamente após um refresh da página.
+                <?php
                     unset($_SESSION['login_erro']);
+                endif;
+
+                // Exibe mensagem de status (sucesso do cadastro, etc.), se houver.
+                if (isset($_SESSION['status_msg'])):
+                    $msg = $_SESSION['status_msg'];
+                ?>
+                    <div class="alert alert-<?= htmlspecialchars($msg['tipo']) ?> text-center" role="alert">
+                        <?= htmlspecialchars($msg['texto']) ?>
+                    </div>
+                <?php
+                    unset($_SESSION['status_msg']);
                 endif;
                 ?>
 

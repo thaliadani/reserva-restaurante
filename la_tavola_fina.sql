@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 31/10/2025 às 18:06
+-- Tempo de geração: 31/10/2025 às 19:30
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -46,8 +46,8 @@ CREATE TABLE `reservas` (
 -- Despejando dados para a tabela `reservas`
 --
 
-INSERT INTO `reservas` (`id_reserva`, `nome_cliente`, `email_cliente`, `telefone_cliente`, `data_reserva`, `hora_reserva`, `num_pessoas`, `observacoes`, `data_criacao`, `status`) VALUES
-(5, 'Thalia', 'UDZr3LUbUV7Vw9B/l2njlorni27+JjiFSnhipdTVZcmdp7OS1akRtvSbPdnVSucV', 'jC5Yk3DCVLwGKz7g1FJLFA6nTWTiJuX7BH111z9TtsI=', '2025-11-07', '19:17:00', 1, '', '2025-10-31 14:04:20', 'Pendente');
+INSERT INTO `reservas` (`id_reserva`, `nome_cliente`, `email_cliente`, `email_hash`, `telefone_cliente`, `telefone_hash`, `data_reserva`, `hora_reserva`, `num_pessoas`, `observacoes`, `data_criacao`, `status`) VALUES
+(9, 'Thalia', 'COSepA3WC1UeIGfgi4JGp6BJfZb82NUMoVjantQVBUV1PLNhr9DpwcN2820tqm+C', 'eb653ca3f87f92361f3cf2a41fa217718975a711d2e7e4daea1662181a95a4f1', 'lQO56M/oX1NHDBLmpdhNrS/c7Qec+wHUfpPIPLXRDJs=', '649f795b9f5de51aa713dea2822adbcdc3b10ec3a8af51b3ea1feedf9987d22a', '2025-10-31', '19:13:00', 4, '', '2025-10-31 15:08:57', 'Pendente');
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,8 @@ INSERT INTO `usuarios_admin` (`id_admin`, `nome_completo`, `usuario`, `senha`, `
 -- Índices de tabela `reservas`
 --
 ALTER TABLE `reservas`
-  ADD PRIMARY KEY (`id_reserva`);
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD KEY `idx_nome_hashes` (`nome_cliente`,`email_hash`,`telefone_hash`);
 
 --
 -- Índices de tabela `usuarios_admin`
@@ -95,7 +96,7 @@ ALTER TABLE `usuarios_admin`
 -- AUTO_INCREMENT de tabela `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios_admin`
