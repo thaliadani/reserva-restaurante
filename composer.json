@@ -1,5 +1,17 @@
 {
+    "name": "thalia/reserva-restaurante",
     "require": {
-        "phpmailer/phpmailer": "^7.0.0"
-    }
+        "phpmailer/phpmailer": "^7.0",
+        "monolog/monolog": "^3.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thalia\\ReservaRestaurante\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "thalia"
+        }
+    ]
 }

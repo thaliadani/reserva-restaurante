@@ -27,7 +27,7 @@ session_start();
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="data_reserva" class="form-label">Data</label>
-                                <input type="date" class="form-control" id="data_reserva" name="data_reserva" required>
+                                <input type="date" class="form-control" id="data_reserva" name="data_reserva" min="<?= date('Y-m-d') ?>" required>
                             </div>
                             <div class="col">
                                 <label for="hora_reserva" class="form-label">Hora</label>
@@ -117,9 +117,10 @@ session_start();
             document.addEventListener('DOMContentLoaded', function () {
                 // PASSO 5: Passar os valores do PHP para variáveis JavaScript.
                 // O PHP "imprime" os valores diretamente no código JavaScript antes de enviá-lo ao navegador.
-                // Usamos htmlspecialchars() na mensagem por segurança, para prevenir ataques XSS.
+                // Usamos json_encode() para passar a string de forma segura para o JavaScript,
+                // preservando quebras de linha e caracteres especiais.
                 const status = "<?= $status ?>";
-                const mensagem = "<?= htmlspecialchars($mensagem) ?>";
+                const mensagem = <?= json_encode($mensagem) ?>;
 
                 // PASSO 6: Inicializar o componente Modal do Bootstrap.
                 const modal = new bootstrap.Modal(document.getElementById('feedbackModal'));

@@ -53,12 +53,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $database = new Database();
     $db = $database->getConnection();
 
+    // NOVO: PASSO 6.5 - Verificar se já existe uma reserva com os mesmos dados.
+    // Criamos hashes dos dados para poder pesquisar sem expor a informação original.
+    $email_hash = hash('sha256', strtolower($email));
+    $telefone_hash = hash('sha256', $telefone);
+
+    // Lógica de verificação alterada para 'OU' (OR).
+    // Verifica se existe alguma reserva ativa com o mesmo nome, e-mail OU telefone.
+    $query_check = "SELECT id_reserva FROM reservas 
+                    WHERE (nome_cliente = :nome_cliente OR email_hash = :email_hash OR telefone_hash = :telefone_hash) 
+                    AND status != 'Cancelada'";
+
+    $stmt_check = $db->prepare($query_check);
+    $stmt_check->bindValue(':nome_cliente', htmlspecialchars($nome), PDO::PARAM_STR);
+    $stmt_check->bindValue(':email_hash', $email_hash, PDO::PARAM_STR);
+    $stmt_check->bindValue(':telefone_hash', $telefone_hash, PDO::PARAM_STR);
+    $stmt_check->execute();
+
+    if ($stmt_check->rowCount() > 0) {
+        // Se encontrou um registro, a reserva é duplicada.
+        $_SESSION['reserva_status'] = 'erro';
+        // Mensagem de erro atualizada para refletir a nova lógica.
+        $_SESSION['reserva_mensagem'] = 'Já existe uma reserva ativa com este nome, e-mail ou telefone. 
+                                         Por favor, verifique seus dados ou entre em contato conosco para gerenciar sua reserva existente.';
+        header("Location: reserva.php");
+        exit();
+    }
+
     // PASSO 7: Preparar a consulta SQL para inserção.
     // Os placeholders permanecem, a segurança contra SQL Injection é MANTIDA.
     $query = "INSERT INTO reservas 
-              (nome_cliente, email_cliente, telefone_cliente, data_reserva, hora_reserva, num_pessoas, observacoes) 
+              (nome_cliente, email_cliente, email_hash, telefone_cliente, telefone_hash, data_reserva, hora_reserva, num_pessoas, observacoes) 
               VALUES 
-              (:nome_cliente, :email_cliente, :telefone_cliente, :data_reserva, :hora_reserva, :num_pessoas, :observacoes)";
+              (:nome_cliente, :email_cliente, :email_hash, :telefone_cliente, :telefone_hash, :data_reserva, :hora_reserva, :num_pessoas, :observacoes)";
 
     $stmt = $db->prepare($query);
 
@@ -66,7 +93,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // AGORA LIGAMOS AS VARIÁVEIS CRIPTOGRAFADAS.
     $stmt->bindValue(':nome_cliente', htmlspecialchars($nome), PDO::PARAM_STR);
     $stmt->bindValue(':email_cliente', $email_criptografado, PDO::PARAM_STR); // Dado criptografado
+    $stmt->bindValue(':email_hash', $email_hash, PDO::PARAM_STR); // Hash para busca
     $stmt->bindValue(':telefone_cliente', $telefone_criptografado, PDO::PARAM_STR); // Dado criptografado
+    $stmt->bindValue(':telefone_hash', $telefone_hash, PDO::PARAM_STR); // Hash para busca
     $stmt->bindValue(':data_reserva', $data, PDO::PARAM_STR);
     $stmt->bindValue(':hora_reserva', $hora, PDO::PARAM_STR);
     $stmt->bindValue(':num_pessoas', $pessoas, PDO::PARAM_INT); 

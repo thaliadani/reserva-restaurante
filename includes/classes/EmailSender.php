@@ -1,34 +1,38 @@
 <?php
-// Substitua pelo caminho correto para a sua instalação do PHPMailer
-// Se usou Composer:
-// require __DIR__ . '/../../vendor/autoload.php';
-
-// Se instalou manualmente (Ajuste os caminhos):
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-// require_once __DIR__ . '/../../PHPMailer/src/Exception.php'; 
-// require_once __DIR__ . '/../../PHPMailer/src/PHPMailer.php';
-// require_once __DIR__ . '/../../PHPMailer/src/SMTP.php';
+use PHPMailer\PHPMailer\SMTP;
 
-class EmailSender {
+// PASSO 1: Carregar o autoloader do Composer.
+// Este único arquivo carrega o PHPMailer e qualquer outra dependência do seu projeto.
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-    public static function enviarStatus($email_cliente, $nome_cliente, $id_reserva, $novo_status, $detalhes_reserva) {
-        
+class EmailSender
+{
+
+    public static function enviarStatus($email_cliente, $nome_cliente, $id_reserva, $novo_status, $detalhes_reserva)
+    {
+
         $mail = new PHPMailer(true);
         $assunto = "Atualização da Reserva #{$id_reserva} | La Tavola Fina";
         $corpo_html = self::gerarCorpoEmail($nome_cliente, $id_reserva, $novo_status, $detalhes_reserva);
         $corpo_texto = "Status da sua reserva #{$id_reserva} alterado para: {$novo_status}.";
-        
+
         try {
-            // Configurações do Servidor SMTP (AJUSTE AQUI)
+            // PASSO 2: Configurações do Servidor SMTP
+            // Habilitar o modo de depuração para ver os erros detalhados.
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Descomente esta linha para ver o log completo de conexão
+
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com'; // Ex: smtp.gmail.com, mail.seudominio.com
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'latavolafina@gmail.com'; // Seu e-mail completo
-            $mail->Password   = '1q2w3e4r5t6YU';   // Sua senha ou App Password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // 'ssl' ou 'tls'
-            $mail->Port       = 587; // Ou 465 para SSL
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'latavolafina@gmail.com'; // Seu e-mail do Gmail
+
+            // PASSO 3: Use uma "Senha de App" gerada pelo Google, não a sua senha normal.
+            $mail->Password = 'jnfh ujcx ufwg cmai'; // IMPORTANTE: Substitua pela sua senha de app.
+
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Recomendado para Gmail
+            $mail->Port = 465; // Porta para SSL/SMTPS
 
             // Remetente e Destinatário
             $mail->setFrom('nao-responda@latavolafina.com', 'La Tavola Fina');
@@ -38,7 +42,7 @@ class EmailSender {
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Subject = $assunto;
-            $mail->Body    = $corpo_html;
+            $mail->Body = $corpo_html;
             $mail->AltBody = $corpo_texto; // Versão em texto puro
 
             $mail->send();
@@ -50,11 +54,12 @@ class EmailSender {
         }
     }
 
-    private static function gerarCorpoEmail($nome, $id, $status, $detalhes) {
+    private static function gerarCorpoEmail($nome, $id, $status, $detalhes)
+    {
         $cor = ($status == 'Confirmada') ? '#28a745' : (($status == 'Cancelada') ? '#dc3545' : '#ffc107');
 
         // Note: Para 'Cancelada' o e-mail deve ser enviado ANTES de deletar, se você implementou a exclusão.
-        
+
         return "
         <html>
         <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>

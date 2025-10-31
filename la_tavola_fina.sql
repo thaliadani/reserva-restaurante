@@ -1,56 +1,109 @@
--- --------------------------------------------------------
--- Servidor:                     127.0.0.1
--- Versão do servidor:           8.4.3 - MySQL Community Server - GPL
--- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.8.0.6908
--- --------------------------------------------------------
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Tempo de geração: 31/10/2025 às 18:06
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Banco de dados: `la_tavola_fina`
+--
 
--- Copiando estrutura do banco de dados para la_tavola_fina
-CREATE DATABASE IF NOT EXISTS `la_tavola_fina` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `la_tavola_fina`;
+-- --------------------------------------------------------
 
--- Copiando estrutura para tabela la_tavola_fina.reservas
-CREATE TABLE IF NOT EXISTS `reservas` (
-  `id_reserva` int NOT NULL AUTO_INCREMENT,
-  `nome_cliente` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_cliente` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefone_cliente` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+--
+-- Estrutura para tabela `reservas`
+--
+
+CREATE TABLE `reservas` (
+  `id_reserva` int(11) NOT NULL,
+  `nome_cliente` varchar(100) NOT NULL,
+  `email_cliente` varchar(512) NOT NULL,
+  `email_hash` varchar(64) DEFAULT NULL,
+  `telefone_cliente` varchar(512) NOT NULL,
+  `telefone_hash` varchar(64) DEFAULT NULL,
   `data_reserva` date NOT NULL,
   `hora_reserva` time NOT NULL,
-  `num_pessoas` int NOT NULL,
-  `observacoes` text COLLATE utf8mb4_unicode_ci,
-  `data_criacao` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('Pendente','Confirmada','Cancelada') COLLATE utf8mb4_unicode_ci DEFAULT 'Pendente',
-  PRIMARY KEY (`id_reserva`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `num_pessoas` int(11) NOT NULL,
+  `observacoes` text DEFAULT NULL,
+  `data_criacao` datetime DEFAULT current_timestamp(),
+  `status` enum('Pendente','Confirmada','Cancelada') DEFAULT 'Pendente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Exportação de dados foi desmarcado.
+--
+-- Despejando dados para a tabela `reservas`
+--
 
--- Copiando estrutura para tabela la_tavola_fina.usuarios_admin
-CREATE TABLE IF NOT EXISTS `usuarios_admin` (
-  `id_admin` int NOT NULL AUTO_INCREMENT,
-  `nome_completo` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `usuario` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `senha` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_criacao` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_admin`),
-  UNIQUE KEY `usuario` (`usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `reservas` (`id_reserva`, `nome_cliente`, `email_cliente`, `telefone_cliente`, `data_reserva`, `hora_reserva`, `num_pessoas`, `observacoes`, `data_criacao`, `status`) VALUES
+(5, 'Thalia', 'UDZr3LUbUV7Vw9B/l2njlorni27+JjiFSnhipdTVZcmdp7OS1akRtvSbPdnVSucV', 'jC5Yk3DCVLwGKz7g1FJLFA6nTWTiJuX7BH111z9TtsI=', '2025-11-07', '19:17:00', 1, '', '2025-10-31 14:04:20', 'Pendente');
 
--- Exportação de dados foi desmarcado.
+-- --------------------------------------------------------
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+--
+-- Estrutura para tabela `usuarios_admin`
+--
+
+CREATE TABLE `usuarios_admin` (
+  `id_admin` int(11) NOT NULL,
+  `nome_completo` varchar(100) DEFAULT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `data_criacao` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `usuarios_admin`
+--
+
+INSERT INTO `usuarios_admin` (`id_admin`, `nome_completo`, `usuario`, `senha`, `data_criacao`) VALUES
+(5, 'Administrador Principal', 'admin', '$2y$10$svbww6Rbg48KUBRLINXvuOOiluTUnydFaxQCDywtLkS0hD9NQA3va', '2025-10-30 17:25:27');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `reservas`
+--
+ALTER TABLE `reservas`
+  ADD PRIMARY KEY (`id_reserva`);
+
+--
+-- Índices de tabela `usuarios_admin`
+--
+ALTER TABLE `usuarios_admin`
+  ADD PRIMARY KEY (`id_admin`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `reservas`
+--
+ALTER TABLE `reservas`
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios_admin`
+--
+ALTER TABLE `usuarios_admin`
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
