@@ -43,28 +43,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_reserva']) && isset
 
     // PASSO 7: Conectar ao Banco de Dados.
     require_once '../includes/classes/Database.php';
+    require_once '../includes/config/security.php';
+    require_once '../includes/classes/EmailSender.php';
+    
     $database = new Database();
     $db = $database->getConnection();
+
+    //Buscar os dados originais da reserva para envio de e-mail.
+    $query_select = "SELECT nome_cliente, email_cliente, data_reserva, hora_reserva, num_pessoas, observacoes FROM reservas WHERE id_reserva = :id";
+    $stmt_select = $db->prepare($query_select);
+    $stmt_select->bindParam(':id', $id_reserva, PDO::PARAM_INT);
+    $stmt_select->execute();
+    $reserva_original = $stmt_select->fetch(PDO::FETCH_ASSOC);
+
+    if (!$reserva_original) {
+        http_response_code(404);
+        echo json_encode(['success' => false, 'message' => 'Reserva não encontrada.']);
+        exit();
+    }
+    
+    // Descriptografar o e-mail para uso
+    $email_cliente_real = decrypt_data($reserva_original['email_cliente']);
     
     // PASSO 8: Tentar executar a atualização no banco de dados.
     // O bloco try...catch captura possíveis erros de banco de dados (PDOException).
     try {
-        // Prepara a query de UPDATE usando placeholders (:novo_status, :id_reserva) para prevenir SQL Injection.
-        $query = "UPDATE reservas SET status = :novo_status WHERE id_reserva = :id_reserva";
-        
-        $stmt = $db->prepare($query);
-
-        // Liga (bind) as variáveis PHP aos placeholders da query, garantindo a segurança.
-        $stmt->bindParam(':novo_status', $novo_status);
-        $stmt->bindParam(':id_reserva', $id_reserva, PDO::PARAM_INT);
-
+       if ($novo_status == 'Cancelada') {
+            // Se o status for 'Cancelada', a ação é DELETAR a reserva.
+            $query = "DELETE FROM reservas WHERE id_reserva = :id_reserva";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':id_reserva', $id_reserva, PDO::PARAM_INT);
+            $mensagem_sucesso = "Reserva #{$id_reserva} foi **excluída** após ser marcada como 'Cancelada'.";
+        } else {
+                // Para os outros status ('Pendente', 'Confirmada'), a ação é UPDATE.
+                $query = "UPDATE reservas SET status = :novo_status WHERE id_reserva = :id_reserva";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':novo_status', $novo_status);
+                $stmt->bindParam(':id_reserva', $id_reserva, PDO::PARAM_INT);
+                $mensagem_sucesso = "Status da Reserva #{$id_reserva} alterado para '{$novo_status}'.";
+            }
         // PASSO 9: Executar a query e tratar o resultado.
         if ($stmt->execute()) {
+            
+            if ($novo_status == 'Confirmada' || $novo_status == 'Cancelada') {
+                $email_enviado = EmailSender::enviarStatus(
+                    $email_cliente_real, 
+                    $reserva_original['nome_cliente'], 
+                    $id_reserva, 
+                    $novo_status,
+                    $reserva_original // Passa todos os detalhes para o corpo do e-mail
+                );
+                
+                if (!$email_enviado) {
+                    $mensagem_sucesso .= " (AVISO: Falha ao enviar e-mail.)";
+                }
+            }
+            
             // SUCESSO: A atualização foi bem-sucedida.
-            // Define uma "flash message" na sessão, que será exibida na página de listagem após o reload.
             $_SESSION['status_msg'] = [
                 'tipo' => 'success', 
-                'texto' => "Status da Reserva #{$id_reserva} alterado para '{$novo_status}'."
+                'texto' => $mensagem_sucesso
             ];
             
             // Envia uma resposta JSON de sucesso para o JavaScript que fez a requisição.

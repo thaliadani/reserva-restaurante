@@ -24,7 +24,7 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
             <div class="card-header bg-dark text-white text-center">
                 <h4 class="mb-0">Acesso Administrativo</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body d-flex flex-column mb-3">
 
                 <?php
                 // PASSO 1: Verificar se existe uma mensagem de erro na sessão.
@@ -55,6 +55,8 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
                         <button type="submit" class="btn btn-dark btn-lg">Entrar</button>
                     </div>
                 </form>
+
+                <a class="text-center pt-3" href="./cadastro.php">Não possui cadastro? Cria aqui</a>
             </div>
         </div>
     </div>
