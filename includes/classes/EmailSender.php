@@ -58,8 +58,6 @@ class EmailSender
     {
         $cor = ($status == 'Confirmada') ? '#28a745' : (($status == 'Cancelada') ? '#dc3545' : '#ffc107');
 
-        // Note: Para 'Cancelada' o e-mail deve ser enviado ANTES de deletar, se você implementou a exclusão.
-
         return "
         <html>
         <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>

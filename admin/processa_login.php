@@ -41,8 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Depois, usamos password_verify() para comparar a senha enviada ($senha_form) com o hash da senha armazenado no banco ($admin['senha']).
     // Esta é a maneira correta e segura de verificar senhas.
     if ($admin && password_verify($senha_form, $admin['senha'])) {
-        // SUCESSO NO LOGIN: A senha corresponde.
-        // Armazenamos na sessão que o admin está logado e qual é o seu nome de usuário.
         $_SESSION['admin_logado'] = true;
         $_SESSION['admin_usuario'] = $admin['usuario']; 
         
@@ -51,10 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
         
     } else {
-        // FALHA NO LOGIN: Usuário não encontrado ou senha incorreta.
-        // Criamos uma mensagem de erro na sessão que será exibida na página de login.
         $_SESSION['login_erro'] = "Usuário ou senha inválidos.";
-        // Redirecionamos de volta para a página de login.
         header("Location: index.php");
         exit();
     }

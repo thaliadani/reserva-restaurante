@@ -122,29 +122,22 @@ session_start();
                 const status = "<?= $status ?>";
                 const mensagem = <?= json_encode($mensagem) ?>;
 
-                // PASSO 6: Inicializar o componente Modal do Bootstrap.
                 const modal = new bootstrap.Modal(document.getElementById('feedbackModal'));
 
-                // PASSO 7: Selecionar os elementos do modal que serão modificados.
                 const modalHeader = document.querySelector('#feedbackModal .modal-header');
                 const modalTitle = document.querySelector('#feedbackModalLabel');
                 const modalBodyText = document.querySelector('#modal-body-text');
 
-                // PASSO 8: Personalizar o modal com base no status (sucesso ou erro).
                 if (status === 'sucesso') {
-                    // Se for sucesso, muda a cor do cabeçalho para verde e ajusta o título.
                     modalHeader.className = 'modal-header bg-success text-white';
                     modalTitle.textContent = 'Reserva Concluída!';
                 } else if (status === 'erro') {
-                    // Se for erro, muda a cor do cabeçalho para vermelho e ajusta o título.
                     modalHeader.className = 'modal-header bg-danger text-white';
                     modalTitle.textContent = 'Erro na Reserva';
                 }
 
-                // PASSO 9: Inserir a mensagem de feedback no corpo do modal.
                 modalBodyText.innerHTML = mensagem;
 
-                // PASSO 10: Exibir o modal para o usuário.
                 modal.show();
             });
 

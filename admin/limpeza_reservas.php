@@ -1,6 +1,5 @@
 <?php
 // Define o fuso horário para garantir que a comparação de tempo seja correta.
-// Use o fuso horário do seu servidor/localização. Ex: 'America/Sao_Paulo'.
 date_default_timezone_set('America/Sao_Paulo');
 
 // Define um caminho base para facilitar a inclusão de arquivos.
@@ -12,7 +11,6 @@ require_once BASE_PATH . '/includes/classes/Database.php';
 echo "Iniciando script de limpeza de reservas antigas em " . date('Y-m-d H:i:s') . "\n";
 
 try {
-    // 1. Conectar ao banco de dados
     $database = new Database();
     $db = $database->getConnection();
 
@@ -38,8 +36,8 @@ try {
     }
 
     echo $log_message;
-    // Opcional: Salvar em um arquivo de log
-    // file_put_contents(BASE_PATH . '/logs/cron.log', date('Y-m-d H:i:s') . " - " . $log_message, FILE_APPEND);
+
+    file_put_contents(BASE_PATH . '/logs/cron.log', date('Y-m-d H:i:s') . " - " . $log_message, FILE_APPEND);
 
 } catch (Exception $e) {
     $error_message = "Erro durante a execução do script de limpeza: " . $e->getMessage() . "\n";

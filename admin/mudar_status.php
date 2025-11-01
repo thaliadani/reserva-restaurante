@@ -41,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_reserva']) && isset
         exit();
     }
 
-    // PASSO 7: Conectar ao Banco de Dados.
     require_once '../includes/classes/Database.php';
     require_once '../includes/config/security.php';
     require_once '../includes/classes/EmailSender.php';
@@ -68,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_reserva']) && isset
     // PASSO 8: Tentar executar a atualização no banco de dados.
     // O bloco try...catch captura possíveis erros de banco de dados (PDOException).
     try {
-       if ($novo_status == 'Cancelada') {
+        if ($novo_status == 'Cancelada') {
             // Se o status for 'Cancelada', a ação é DELETAR a reserva.
             $query = "DELETE FROM reservas WHERE id_reserva = :id_reserva";
             $stmt = $db->prepare($query);
@@ -142,6 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_reserva']) && isset
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Acesso inválido.']);
 }
-// Encerra o script para garantir que nada mais seja executado.
+
 exit();
 ?>

@@ -45,9 +45,6 @@ $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // count() conta o número total de reservas encontradas.
 $num = count($reservas);
 
-// --------------------------------------------------------------------------
-// INÍCIO DO HTML
-// --------------------------------------------------------------------------
 ?>
 
 <!DOCTYPE html>
@@ -159,7 +156,6 @@ $num = count($reservas);
                 </table>
             </div>
         <?php else: ?>
-            <!-- Mensagem exibida se não houver nenhuma reserva no banco de dados. -->
             <div class="alert alert-info text-center">Nenhuma reserva encontrada.</div>
         <?php endif; ?>
     </main>
@@ -198,13 +194,7 @@ $num = count($reservas);
                     body: formData
                 })
                 .then(response => {
-                    // Se a requisição foi bem-sucedida (status 200)
-                    // Se a resposta do servidor for OK (status 200-299), recarrega a página.
-                    // O recarregamento fará com que o PHP leia a 'status_msg' da sessão (definida em mudar_status.php) e exiba o alerta de sucesso.
                     if (response.ok) {
-                        // Como mudar_status.php faz um redirecionamento e define a SESSION, 
-                        // a maneira mais fácil de mostrar o feedback é recarregar a página
-                        // para que o PHP exiba o alerta de SESSION.
                         window.location.reload();
                     } else {
                         alert('Erro na comunicação com o servidor. Tente novamente.');

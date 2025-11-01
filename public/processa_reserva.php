@@ -1,18 +1,14 @@
 <?php
-// PASSO 1: Iniciar a sessão.
 session_start();
 
-// PASSO 2: Incluir os arquivos necessários.
 require_once '../includes/classes/Database.php';
-// NOVO: Incluir o arquivo de segurança para a CHAVE e funções de criptografia.
-require_once '../includes/config/security.php'; 
+require_once '../includes/config/security.php';
 
-// PASSO 3: Verificar o método da requisição.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // PASSO 4: Coletar, limpar e CRIPTOGRAFAR os dados do formulário.
     $nome = trim($_POST['nome_cliente'] ?? '');
-    
+
     $email = trim($_POST['email_cliente'] ?? '');
     // $emailHash = hash('sha256', strtolower(trim($email))); // REMOVIDO: HASH É IRREVERSÍVEL.
 
@@ -28,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $data = $_POST['data_reserva'];
     $hora = $_POST['hora_reserva'];
-    $pessoas = (int) ($_POST['num_pessoas'] ?? 0); 
+    $pessoas = (int) ($_POST['num_pessoas'] ?? 0);
     $observacoes = trim($_POST['observacoes'] ?? '');
 
     // PASSO 5: Validação básica dos dados.
@@ -38,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: reserva.php");
         die("Formato de e-mail inválido.");
     }
-    
+
     // NOVO: Validação de telefone (exemplo básico: apenas dígitos).
     // Use expressões regulares mais robustas se necessário.
     $telefone_limpo = preg_replace('/[^0-9]/', '', $telefone);
@@ -53,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $database = new Database();
     $db = $database->getConnection();
 
-    // NOVO: PASSO 6.5 - Verificar se já existe uma reserva com os mesmos dados.
+    // PASSO 6.5 - Verificar se já existe uma reserva com os mesmos dados.
     // Criamos hashes dos dados para poder pesquisar sem expor a informação original.
     $email_hash = hash('sha256', strtolower($email));
     $telefone_hash = hash('sha256', $telefone);
@@ -71,11 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_check->execute();
 
     if ($stmt_check->rowCount() > 0) {
-        // Se encontrou um registro, a reserva é duplicada.
         $_SESSION['reserva_status'] = 'erro';
-        // Mensagem de erro atualizada para refletir a nova lógica.
         $_SESSION['reserva_mensagem'] = 'Já existe uma reserva ativa com este nome, e-mail ou telefone. 
-                                         Por favor, verifique seus dados ou entre em contato conosco para gerenciar sua reserva existente.';
+                                        Por favor, verifique seus dados ou entre em contato conosco para gerenciar sua reserva existente.';
         header("Location: reserva.php");
         exit();
     }
@@ -83,9 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // PASSO 7: Preparar a consulta SQL para inserção.
     // Os placeholders permanecem, a segurança contra SQL Injection é MANTIDA.
     $query = "INSERT INTO reservas 
-              (nome_cliente, email_cliente, email_hash, telefone_cliente, telefone_hash, data_reserva, hora_reserva, num_pessoas, observacoes) 
-              VALUES 
-              (:nome_cliente, :email_cliente, :email_hash, :telefone_cliente, :telefone_hash, :data_reserva, :hora_reserva, :num_pessoas, :observacoes)";
+            (nome_cliente, email_cliente, email_hash, telefone_cliente, telefone_hash, data_reserva, hora_reserva, num_pessoas, observacoes) 
+            VALUES 
+            (:nome_cliente, :email_cliente, :email_hash, :telefone_cliente, :telefone_hash, :data_reserva, :hora_reserva, :num_pessoas, :observacoes)";
 
     $stmt = $db->prepare($query);
 
@@ -98,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindValue(':telefone_hash', $telefone_hash, PDO::PARAM_STR); // Hash para busca
     $stmt->bindValue(':data_reserva', $data, PDO::PARAM_STR);
     $stmt->bindValue(':hora_reserva', $hora, PDO::PARAM_STR);
-    $stmt->bindValue(':num_pessoas', $pessoas, PDO::PARAM_INT); 
+    $stmt->bindValue(':num_pessoas', $pessoas, PDO::PARAM_INT);
     $stmt->bindValue(':observacoes', htmlspecialchars($observacoes), PDO::PARAM_STR);
 
     // PASSO 9: Executar a query e tratar o resultado. (Sem alterações)
