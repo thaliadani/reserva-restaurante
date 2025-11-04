@@ -56,7 +56,7 @@ class EmailSender
 
     private static function gerarCorpoEmail($nome, $id, $status, $detalhes)
     {
-        $cor = ($status == 'Confirmada') ? '#28a745' : ($status == 'Pendente') ? : '#ffc107'($status == 'Cancelada') ? '#dc3545';
+        $cor = ($status == 'Confirmada') ? '#28a745' : (($status == 'Cancelada') ? '#dc3545' : '#ffc107');
 
         return "
         <html>

@@ -1,5 +1,5 @@
 const CACHE_NAME = "la-tavola-fina-v1";
-const arquivos = ["/", "/index.php","/reserva_lista.php", "/assets/js/script.js", "/assets/img/icon.svg"];
+const arquivos = ["/", "/index.php","/reservas_lista.php", "/cadastro.php", "/processa_login","/processa_cadatro", "/mudar_status", "/logout.php", "/assets/js/script.js", "/assets/img/icon.svg"];
 
 self.addEventListener("install", (event) => {
     event.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(arquivos)));

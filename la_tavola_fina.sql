@@ -42,13 +42,6 @@ CREATE TABLE `reservas` (
   `status` enum('Pendente','Confirmada','Cancelada') DEFAULT 'Pendente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Despejando dados para a tabela `reservas`
---
-
-INSERT INTO `reservas` (`id_reserva`, `nome_cliente`, `email_cliente`, `email_hash`, `telefone_cliente`, `telefone_hash`, `data_reserva`, `hora_reserva`, `num_pessoas`, `observacoes`, `data_criacao`, `status`) VALUES
-(9, 'Thalia', 'COSepA3WC1UeIGfgi4JGp6BJfZb82NUMoVjantQVBUV1PLNhr9DpwcN2820tqm+C', 'eb653ca3f87f92361f3cf2a41fa217718975a711d2e7e4daea1662181a95a4f1', 'lQO56M/oX1NHDBLmpdhNrS/c7Qec+wHUfpPIPLXRDJs=', '649f795b9f5de51aa713dea2822adbcdc3b10ec3a8af51b3ea1feedf9987d22a', '2025-10-31', '19:13:00', 4, '', '2025-10-31 15:08:57', 'Pendente');
-
 -- --------------------------------------------------------
 
 --

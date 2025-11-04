@@ -123,7 +123,6 @@ session_start();
                 const mensagem = <?= json_encode($mensagem) ?>;
 
                 const modal = new bootstrap.Modal(document.getElementById('feedbackModal'));
-
                 const modalHeader = document.querySelector('#feedbackModal .modal-header');
                 const modalTitle = document.querySelector('#feedbackModalLabel');
                 const modalBodyText = document.querySelector('#modal-body-text');
