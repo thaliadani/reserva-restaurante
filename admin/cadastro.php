@@ -53,7 +53,7 @@ session_start();
                     </div>
                 </form>
 
-                <a class="text-center pt-3" href="./index.php">Já possui uma conta? Faça login</a>
+                <p class="text-center pt-3">Já possui uma conta? <a  href="./index.php">Faça login</a></p>
             </div>
         </div>
     </div>

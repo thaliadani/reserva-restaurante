@@ -63,7 +63,7 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
                     </div>
                 </form>
 
-                <a class="text-center pt-3" href="./cadastro.php">Não possui cadastro? Cria aqui</a>
+                <p class="text-center pt-3">Não possui cadastro? <a  href="./cadastro.php">Cria aqui</a></p>
             </div>
         </div>
     </div>
