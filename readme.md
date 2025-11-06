@@ -6,21 +6,21 @@
   <img src="https://img.shields.io/badge/status-funcional-green" alt="Status do Projeto">
 </p>
 
-## 📖 Sobre
-
-**La Tavola Fina - Sistema de Reservas** é uma aplicação web desenvolvida para simplificar e otimizar a gestão de reservas de um restaurante. O projeto nasceu da necessidade de criar uma ferramenta administrativa centralizada, segura e eficiente, que permitisse aos funcionários do restaurante visualizar e gerenciar todas as solicitações de reserva feitas pelos clientes.
-
-Este sistema resolve o problema da gestão manual e descentralizada de reservas, oferecendo um painel de controle onde é possível alterar o status de uma reserva (de "Pendente" para "Confirmada" ou "Cancelada") com apenas um clique. O grande diferencial é a **comunicação automatizada**: ao confirmar ou cancelar uma reserva, o sistema envia automaticamente um e-mail profissional para o cliente, mantendo-o informado e melhorando a sua experiência.
-
 ## 📜 Tabela de Conteúdos
 
-*   Sobre
+*   [Sobre](Sobre)
 *   Funcionalidades
 *   Tecnologias Utilizadas
 *   Como Começar
 *   Configuração
 *   Como Contribuir
 *   Licença
+
+## 📖 Sobre
+
+**La Tavola Fina - Sistema de Reservas** é uma aplicação web desenvolvida para simplificar e otimizar a gestão de reservas de um restaurante. O projeto nasceu da necessidade de criar uma ferramenta administrativa centralizada, segura e eficiente, que permitisse aos funcionários do restaurante visualizar e gerenciar todas as solicitações de reserva feitas pelos clientes.
+
+Este sistema resolve o problema da gestão manual e descentralizada de reservas, oferecendo um painel de controle onde é possível alterar o status de uma reserva (de "Pendente" para "Confirmada" ou "Cancelada") com apenas um clique. O grande diferencial é a **comunicação automatizada**: ao confirmar ou cancelar uma reserva, o sistema envia automaticamente um e-mail profissional para o cliente, mantendo-o informado e melhorando a sua experiência.
 
 ## ✨ Funcionalidades
 
