@@ -12,7 +12,6 @@
 *   [Tecnologias Utilizadas](#tecnologias-utilizadas)
 *   [Como Começar](#como-começar)
 *   [Configuração](#configuração)
-*   [Como Contribuir](#como-contribuir)
 
 ## 📖 Sobre
 
@@ -84,11 +83,3 @@ Antes de executar o projeto, você precisa configurar as credenciais do banco de
     *   **É altamente recomendável** que você altere os valores das constantes `ENCRYPTION_KEY` e `ENCRYPTION_IV` para chaves aleatórias e seguras. Você pode usar um gerador online para criar valores seguros.
 
 Após a configuração, acesse `http://localhost/reserva-restaurante/admin/` no seu navegador para ver a tela de login do painel administrativo.
-
-## 🤔 Como Contribuir
-
-1.  Faça um *fork* do projeto.
-2.  Crie uma nova *branch* (`git checkout -b feature/nova-funcionalidade`).
-3.  Faça o *commit* das suas alterações (`git commit -m 'Adiciona nova funcionalidade'`).
-4.  Faça o *push* para a *branch* (`git push origin feature/nova-funcionalidade`).
-5.  Abra um *Pull Request*.
