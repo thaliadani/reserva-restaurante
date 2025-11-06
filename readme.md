@@ -1,20 +1,18 @@
 # Sistema de Reservas - La Tavola Fina
 
 <p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Licença MIT">
   <img src="https://img.shields.io/badge/php-^7.4 | ^8.0-blue" alt="Versão do PHP">
   <img src="https://img.shields.io/badge/status-funcional-green" alt="Status do Projeto">
 </p>
 
 ## 📜 Tabela de Conteúdos
 
-*   [Sobre](Sobre)
-*   Funcionalidades
-*   Tecnologias Utilizadas
-*   Como Começar
-*   Configuração
-*   Como Contribuir
-*   Licença
+*   [Sobre](#sobre)
+*   [Funcionalidades](#funcionalidades)
+*   [Tecnologias Utilizadas](#tecnologias-utilizadas)
+*   [Como Começar](#como-começar)
+*   [Configuração](#configuração)
+*   [Como Contribuir](#como-contribuir)
 
 ## 📖 Sobre
 
@@ -94,7 +92,3 @@ Após a configuração, acesse `http://localhost/reserva-restaurante/admin/` no 
 3.  Faça o *commit* das suas alterações (`git commit -m 'Adiciona nova funcionalidade'`).
 4.  Faça o *push* para a *branch* (`git push origin feature/nova-funcionalidade`).
 5.  Abra um *Pull Request*.
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
