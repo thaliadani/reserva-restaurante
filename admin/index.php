@@ -6,6 +6,18 @@ if (isset($_SESSION['admin_logado']) && $_SESSION['admin_logado'] === true) {
     header('Location: reservas_lista.php');
     exit();
 }
+
+// Inclua os arquivos necessários
+require_once '../includes/classes/Database.php';
+require_once '../includes/classes/RemoveReserva.php';
+
+// Cria as instâncias das classes
+$database = new Database();
+$removeReserva = new RemoveReserva($database);
+
+// Executa a função para remover as reservas expiradas
+$removeReserva->removerReservasExpiradas();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
