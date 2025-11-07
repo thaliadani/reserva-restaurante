@@ -86,6 +86,11 @@ $num = count($reservas);
         endif;
         ?>
 
+        <!-- Mensagem de Boas-Vindas -->
+        <div class="mb-4">
+            <h4>Olá, <?= htmlspecialchars($_SESSION['admin_usuario']) ?>!</h4>
+            <p class="text-muted">Bem-vindo(a) ao painel de gerenciamento de reservas.</p>
+        </div>
         <!-- Exibe o título com a contagem total de reservas. -->
         <h2 class="mb-4">Lista de Reservas (<?= $num ?>)</h2>
 
@@ -161,6 +166,27 @@ $num = count($reservas);
     </main>
 
     <script>
+        // Função para exibir o alerta dinamicamente
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.querySelector('main.container');
+            const alertHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                </div>`;
+            alertContainer.insertAdjacentHTML('afterbegin', alertHTML);
+
+            // Pega o alerta que acabamos de adicionar.
+            const newAlert = alertContainer.querySelector('.alert');
+
+            // Define um tempo para remover o alerta automaticamente após 3 segundos.
+            setTimeout(() => {
+                if (newAlert) {
+                    // Usa a funcionalidade do Bootstrap para fechar o alerta com animação.
+                    const bsAlert = new bootstrap.Alert(newAlert);
+                    if (bsAlert) bsAlert.close();
+                }
+            }, 5000); // 5000 milissegundos = 5 segundos
+        }
         // Função que será chamada no evento onchange do select
         // PASSO 10: Função JavaScript para alterar o status da reserva.
         // 'selectElement' é o próprio elemento <select> que disparou o evento.
@@ -169,14 +195,14 @@ $num = count($reservas);
             const id = selectElement.getAttribute('data-reserva-id');
             // Pega o novo valor selecionado (ex: 'Confirmada').
             const novoStatus = selectElement.value;
+            // Guarda o valor original para o caso de o usuário cancelar a ação
+            const valorOriginal = selectElement.dataset.originalValue || selectElement.querySelector('option[selected]').value;
 
             // Confirmação simples antes de enviar
             // Exibe uma caixa de diálogo para confirmar a ação. Se o usuário clicar em "Cancelar", a função para.
             if (!confirm(`Tem certeza que deseja mudar o status da Reserva #${id} para '${novoStatus}'?`)) {
-                // Se cancelar, reverte o select para o valor original (útil se você souber o valor anterior, mas complexo para este caso. 
-                // Por enquanto, apenas retorna para evitar a ação.)
-                // A melhoria aqui seria recarregar a página para reverter a seleção visual, ou armazenar o valor antigo.
-                window.location.reload();
+                // Se o usuário cancelar, o valor do select é revertido para o original.
+                selectElement.value = valorOriginal;
                 return;
             }
 
@@ -193,16 +219,31 @@ $num = count($reservas);
                     method: 'POST',
                     body: formData
                 })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.reload();
+                .then(response => response.json()) // Espera uma resposta JSON
+                .then(data => {
+                    if (data.success) {
+                        // Exibe o alerta de sucesso dinamicamente
+                        showAlert(data.message, data.tipo || 'success');
+                        
+                        // Se a reserva foi cancelada (e excluída), remove a linha da tabela
+                        if (novoStatus === 'Cancelada') {
+                            selectElement.closest('tr').remove();
+                        } else {
+                            // Atualiza o valor 'selected' para o novo status
+                            Array.from(selectElement.options).forEach(option => {
+                                option.selected = (option.value === novoStatus);
+                            });
+                             selectElement.dataset.originalValue = novoStatus;
+                        }
                     } else {
-                        alert('Erro na comunicação com o servidor. Tente novamente.');
+                        // Exibe o alerta de erro e reverte a mudança visual
+                        showAlert(data.message || 'Ocorreu um erro.', 'danger');
+                        selectElement.value = valorOriginal;
                     }
-                })
+                }) 
                 .catch(error => {
                     console.error('Erro na requisição:', error);
-                    alert('Erro ao processar a mudança de status.');
+                    showAlert('Erro de comunicação ao tentar alterar o status.', 'danger');
                 });
         }
     </script>

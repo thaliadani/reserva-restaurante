@@ -84,33 +84,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_reserva']) && isset
         // PASSO 9: Executar a query e tratar o resultado.
         if ($stmt->execute()) {
             
+            // SUCESSO: A atualização foi bem-sucedida.
+            // Envia uma resposta JSON de sucesso com a mensagem para o JavaScript.
+            echo json_encode(['success' => true, 'message' => $mensagem_sucesso, 'tipo' => 'success']);
+            
+            // PASSO 9.1: Otimização de Performance
+            // Encerra a conexão com o navegador, mas continua a execução do script.
+            // Isso torna a interface do admin muito mais rápida, pois ele não precisa esperar o envio do e-mail.
+            if (function_exists('fastcgi_finish_request')) {
+                fastcgi_finish_request();
+            }
+            
+            // PASSO 9.2: Enviar o e-mail em segundo plano (após a resposta já ter sido enviada).
             if ($novo_status == 'Confirmada' || $novo_status == 'Cancelada') {
                 $email_enviado = EmailSender::enviarStatus(
                     $email_cliente_real, 
                     $reserva_original['nome_cliente'], 
                     $id_reserva, 
                     $novo_status,
-                    $reserva_original // Passa todos os detalhes para o corpo do e-mail
+                    $reserva_original
                 );
                 
                 if (!$email_enviado) {
-                    $mensagem_sucesso .= " (AVISO: Falha ao enviar e-mail.)";
+                    // Como a resposta já foi enviada, registramos o erro no log do servidor para análise posterior.
+                    error_log("AVISO: Falha ao enviar e-mail de status para a reserva #{$id_reserva}.");
                 }
             }
-            
-            // SUCESSO: A atualização foi bem-sucedida.
-            $_SESSION['status_msg'] = [
-                'tipo' => 'success', 
-                'texto' => $mensagem_sucesso
-            ];
-            
-            // Envia uma resposta JSON de sucesso para o JavaScript que fez a requisição.
-            echo json_encode(['success' => true]);
             
         } else {
             // FALHA: A execução da query falhou por algum motivo.
             // Define uma mensagem de erro na sessão.
-            $_SESSION['status_msg'] = [
+            $_SESSION['status_msg'] = [ // Esta mensagem é um fallback, caso o JS falhe.
                 'tipo' => 'warning', 
                 'texto' => 'Falha ao executar a atualização no banco de dados.'
             ];
