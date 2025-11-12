@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    cursor: default;
+    user-select: none;
+}
+
 :root{
     --cor-primaria: #000;
     --cor-segundaria: #c99f16;
@@ -33,6 +41,7 @@ main {
     background-color: var(--cor-segundaria) !important;
     color: var(--cor-primaria) !important;
     border: none !important;
+    cursor:pointer;
 }
 
 h1,h2{
