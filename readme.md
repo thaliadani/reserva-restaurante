@@ -76,7 +76,7 @@ Antes de executar o projeto, você precisa configurar as credenciais do banco de
 2.  **Envio de E-mail:**
     *   Abra o arquivo `includes/classes/EmailSender.php`.
     *   Na linha 30, substitua o valor da variável `$mail->Password` pela sua **"Senha de App"** gerada na sua conta Google.
-    > **Importante:** Não use a sua senha normal do Gmail. Você precisa gerar uma "Senha de App" específica para esta aplicação. Saiba como aqui.
+    > **Importante:** Não use a sua senha normal do Gmail. Você precisa gerar uma "Senha de App" específica para esta aplicação.
 
 3.  **Chave de Criptografia:**
     *   Abra o arquivo `includes/config/security.php`.
